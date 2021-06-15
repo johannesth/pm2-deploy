@@ -7,12 +7,20 @@
 # https://github.com/visionmedia/deploy
 #
 
+export MSYS=winsymlinks:nativestrict
 VERSION="0.6.0"
 CONFIG=./deploy.conf
 LOG=/tmp/pm2-deploy-${USER:-default}.log
 FORCE=0
 REF=
 ENV=
+
+echo hello world
+echo hello world
+echo $VERSION
+echo $MSYS
+echo hello world
+echo hello world
 
 #
 # Read PIPED JSON
