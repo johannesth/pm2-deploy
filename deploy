@@ -15,8 +15,6 @@ FORCE=0
 REF=
 ENV=
 
-echo global msys $MSYS
-
 #
 # Read PIPED JSON
 #
@@ -224,8 +222,7 @@ setup() {
     run "git clone --depth=5 --branch $branch $repo $path/source"
   fi
   test $? -eq 0 || abort failed to clone
-  echo inni setup msys $MSYS
-  run "ln -sfn $path/source $path/current"
+  run "export MSYS=winsymlinks:nativestrict && ln -sfn $path/source $path/current"
   test $? -eq 0 || abort symlink failed
   hook post-setup || abort post-setup hook failed
   log setup complete
@@ -280,39 +277,9 @@ deploy() {
   log resetting HEAD to $ref
   run "cd $path/source && git reset --hard $ref"
   test $? -eq 0 || abort git reset failed
-
-  echo link current msys $MSYS
-  echo -----------------------------------------------------------------
-  echo pwd:
-  echo $(pwd)
-  
-  echo -----------------------------------------------------------------
-  echo ls:
-  echo $(ls -al)
-    
-  echo -----------------------------------------------------------------
-  echo path 7 source:
-  echo $path/source
-  
-  echo -----------------------------------------------------------------
-  echo path 7 current:
-  echo $path/current
-  
-  echo -----------------------------------------------------------------
-  echo path 7 current:
-  echo $path/current
-  
-  echo -----------------------------------------------------------------
-  run "echo hello worl run test"
-  
-  echo -----------------------------------------------------------------
-  run "echo tilraun echo-a OS env breytu && echo $OS"
-  
-  echo -----------------------------------------------------------------
-  run "echo hahaha? $MSYS"
   
   # 6- Link current
-  run "ln -sfn $path/source $path/current"
+  run "export MSYS=winsymlinks:nativestrict && ln -sfn $path/source $path/current"
   test $? -eq 0 || abort symlink failed
 
   # deploy log
